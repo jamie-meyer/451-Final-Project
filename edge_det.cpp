@@ -50,7 +50,6 @@ void edgeDetection(Mat & image, vector<int> & xKernel, vector<int> & yKernel)
         }
       }
 
-
       long gX = inner_product(begin(values), end(values), begin(xKernel), 0);
 
       long gY = inner_product(begin(values), end(values), begin(yKernel), 0);
@@ -96,9 +95,9 @@ int main(int argc, char** argv )
   using chrono::nanoseconds;
   typedef chrono::high_resolution_clock clock;
 
-  if ( argc != 2 )
+  if ( argc != 3 )
   {
-    printf("usage: DisplayImage.out <Image_Path>\n");
+    printf("usage: DisplayImage.out <Image_Path> <threshold>\n");
     return -1;
   }
   Mat image;
@@ -114,7 +113,7 @@ int main(int argc, char** argv )
   namedWindow("Display Image", WINDOW_AUTOSIZE );
 //  imshow("Display Image", image);
   start = clock::now();
-  sobelEdgeDetection(image, 150);
+  sobelEdgeDetection(image, atoi(argv[2]));
   end = clock::now();
   std::cout << duration_cast<nanoseconds>(end-start).count() << "ns\n";
   imshow("Display Image", image);
